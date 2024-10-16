@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <input type="text" id="caja">
+    <button id="h1">Hazme click</button>
+    <ul id="mensajeria">
+        
+    </ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        const socket = io();
+
+        socket.on("message",function(msg){
+            const item = document.createElement("li");
+            item.textContent = msg;
+            document.getElementById("mensajeria").appendChild(item)
+        }
+    )
+
+    const h1 = document.getElementById("h1");
+        h1.addEventListener("click",()=>{
+            const input = document.getElementById("caja");
+            if(input.value)
+        {
+            socket.emit("recibir",input.value);
+            input.value = "";
+        }
+        })
+
+    </script>
+</body>
+</html>
